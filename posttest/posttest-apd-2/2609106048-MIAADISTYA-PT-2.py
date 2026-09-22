@@ -19,11 +19,12 @@ nim = 48
 
 bolean = nim != rata_rata
 
-print(harga_makanan)
-print(admin_gojek)
-print(total_bayar)
-print(rata_rata)
-print(nim)
-print(bolean)
-print(konversi_euro)
-print(harga_makanan[-6:])
+print("List harga makanan :", harga_makanan)
+print("Admin gojek :", admin_gojek)
+print("Total yang harus dibayar (IDR) :", total_bayar)
+print("Total yang harus di bayar (EUR) :", konversi_euro, "EUR")
+print("Rata-rata harga makanan :", rata_rata)
+print("NIM :", nim)
+print("nim != rata_rata? :", bolean)
+print("List harga makanan dengan slice index negatif :", harga_makanan[-6:])
+
