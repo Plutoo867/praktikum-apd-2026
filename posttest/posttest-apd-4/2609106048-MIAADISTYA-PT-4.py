@@ -60,7 +60,7 @@ while data == "y":
         while True:
             print('''
 =======================================
-            JENIS LAHAN
+             JENIS LAHAN
 =======================================
 1. GAMBUT
 2. MINERAL
@@ -128,7 +128,7 @@ while data == "y":
         total_sum_mineral = total_sum_mineral + konversi
 
     while True:
-        data = input("\nApakah anda ingin memasukkan titik penyebaran lain (y/t)? ").lower()
+        data = input("Apakah anda ingin memasukkan titik penyebaran lain (y/t)? ").lower()
         if data == "y" or data == "t":
             break
         print("Jawaban tidak valid!")
