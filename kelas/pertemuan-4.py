@@ -8,15 +8,15 @@
 # print(formula1[4][3][2])
 # print(formula1[5][0])
 
-# sirkuit = ["Suzuka", "Monza", "Silverstone", "Marina Bay"]
-# print(sirkuit)
-# sirkuit.append(["Spa-Francorchamps", 9])
-# print(sirkuit)
-# print(sirkuit[4][0])
-# sirkuit.extend(["Interlagos", "Monaco"])
-# print(sirkuit)
-# sirkuit.insert(2, "Hockenheimring")
-# print(sirkuit)
+sirkuit = ["Suzuka", "Monza", "Silverstone", "Marina Bay"]
+print(sirkuit)
+sirkuit.append(["Spa-Francorchamps", 9])
+print(sirkuit)
+print(sirkuit[4][0])
+sirkuit.extend(["Interlagos", "Monaco"])
+print(sirkuit)
+sirkuit.insert(2, "Hockenheimring")
+print(sirkuit)
 
 # sirkuit = ["Suzuka", "Monza", "Silverstone", "Marina Bay"]
 # print(sirkuit)
