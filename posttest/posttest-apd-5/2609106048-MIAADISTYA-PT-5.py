@@ -194,7 +194,7 @@ while True:
                                 pass
                             elif hapus >= 1 and hapus <= len(ensiklopedia):
                                 bunga_hapus = ensiklopedia[hapus - 1]
-                                konfirmasi = input(f"Yakin hapus '{bunga_hapus[0]}' (y/t)?: ").lower()
+                                konfirmasi = input(f"Yakin hapus '{bunga_hapus[0]}'(y/t)?: ").lower()
                                 if konfirmasi == "y":
                                     ensiklopedia.pop(hapus - 1)
                                     print("Koleksi berhasil dihapus!")
@@ -271,7 +271,6 @@ while True:
                     
                     else:
                         print("Pilihan tidak tersedia!")
-            break
 
     elif pilihan == "3":
         print("Terimakasih telah mengunjungi Ensiklopedia Bunga!")
