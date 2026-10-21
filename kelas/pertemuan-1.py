@@ -83,4 +83,4 @@ print(gaji)
 
 print(2 < 4)
 print(5 > 5)
-print(2 < 4 and 5 > 5)lkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+print(2 < 4 and 5 > 5)
