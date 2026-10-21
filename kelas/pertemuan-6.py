@@ -38,7 +38,57 @@
 # for i in range(3):
 #     pengumuman()
 
-def sapa_pengguna(nama_pengguna):
-    print(f"Halo, selamat datang {nama_pengguna}")
+# def sapa_pengguna(nama_pengguna):
+#     print(f"Halo, selamat datang {nama_pengguna}")
 
-sapa_pengguna("88")
+# sapa_pengguna("88")
+
+# #Membuat variabel global
+# nama = "Larry"
+# prodi = "Informatika"
+
+#Membuat variabel lokal
+# def data():
+#     nama = "Teknik Kedokteran"
+#     prodi = "Kedokteran Lanjut"
+#     print("Nama:", nama)
+#     print("Prodi:", prodi)
+
+# data()
+# print("Nama:", nama)
+# print("Prodi:", prodi)
+
+# def faktorial(n):
+# #Base Case: Kondisi fungsi berhenti
+#     if n == 0 or n == 1:
+#         return 1
+#     #Rekursive Case: Fungsi memanggil dirinya sendiri
+#     else:
+#         return n * faktorial(n - 1)
+# #Memanggil fungsi
+# hasil_faktorial = faktorial(8)
+# print(f"Hasil dari 6! {hasil_faktorial}")
+
+# try:
+#     angka = int(input('Masukkan Angka : '))
+# except ValueError:
+#     print('input yang anda masukkan bukan Integer (angka)')
+
+# try:
+#     angka = int(input('Masukkan Angka : '))
+# except ValueError:
+#     print('input yang anda masukkan bukan Integer (angka)')
+# else:
+#     print(f'Angka yang kamu input : {angka}')
+# finally:
+#     print('Blok Try Selesai')
+while True:
+    try:
+        usn = input('Username yang diinginkan : ')
+        if len(usn) < 5:
+            raise ValueError('Nama Minimal Memiliki 5 karakter')
+        elif len(usn) > 8:
+            raise ValueError('hum hum hum')
+        break
+    except ValueError as e:
+        print(e)
