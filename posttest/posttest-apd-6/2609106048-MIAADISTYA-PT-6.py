@@ -1,5 +1,6 @@
 ensiklopedia = {}
 id_terakhir = 0
+
 data_user = {
     "admin" : {
         "role" : "admin",
@@ -147,13 +148,13 @@ while True:
                             else:
                                 id_terakhir += 1
 
-                                ensiklopedia[f"id{id_terakhir}"] =({
-                                                f"id{i}": {
+                                ensiklopedia[f"id{id_terakhir}"] =(
+                                                {
                                                 "bunga": nama,
                                                 "deskripsi": desk, 
                                                 "makna": makna
                                                 }
-                                            })
+                                            )
                                 print("Koleksi berhasil di tambahkan!")
                                 break
 
