@@ -1,12 +1,11 @@
 ensiklopedia = {}
-
+id_terakhir = 0
 data_user = {
     "admin" : {
         "role" : "admin",
         "username" : "admin",
         "password" : "admin123"
-    }
-}
+    }}
 
 while True:
     print('''
@@ -50,8 +49,8 @@ while True:
 
     elif pilihan == "2":
         while True:
-            input_username = input("Silahkan masukkan Username anda: ")
-            input_password = input("Silahkan masukkan Password anda: ")
+            input_username = input("Silakan masukkan Username anda: ")
+            input_password = input("Silakan masukkan Password anda: ")
 
             if input_username == "" or input_password == "":
                 print("Username dan Password tidak boleh kosong")
@@ -70,7 +69,6 @@ while True:
                 continue
 
             print("Login berhasil!")
-            print(data_user)
 
             if role_login == "admin":
                 while True:
@@ -82,7 +80,7 @@ while True:
 2. TAMBAHKAN KOLEKSI BUNGA
 3. EDIT KOLEKSI BUNGA
 4. HAPUS KOLEKSI BUNGA
-5. KELUAR
+5. LOGOUT
 =======================================
                     ''')
                     pilihan_admin = input("Masukkan pilihan (1/2/3/4/5): ")
@@ -96,9 +94,8 @@ while True:
               DAFTAR BUNGA
 =======================================
 ''')
-                            i = len(ensiklopedia)
-                            for i in ensiklopedia.keys:
-                                print(f"{nomor}. {i["bunga"]}")
+                            for bunga in ensiklopedia.values():
+                                print(f"{nomor}. {bunga["bunga"]}")
                                 nomor += 1
 
                             detail = input("Masukkan nomor bunga untuk melihat detail: ")
@@ -111,7 +108,8 @@ while True:
                             else:
                                 detail = int(detail)
                                 if detail >= 1 and detail <= len(ensiklopedia):
-                                    bunga_terpilih = ensiklopedia[detail - 1]
+                                    id_bunga = list(ensiklopedia.keys()) 
+                                    bunga_terpilih = ensiklopedia[id_bunga[detail - 1]]
                                     print('''
 =======================================
               DETAIL BUNGA
@@ -126,114 +124,131 @@ while True:
                                     print("Nomor bunga tidak valid.")
 
                     elif pilihan_admin == "2":
-                        nama = input("Masukkan nama bunga      : ")
-                        desk = input("Masukkan deskripsi bunga : ")
-                        makna = input("Masukkan makna bunga     : ")
+                        while True:
+                            nama = input("Masukkan nama bunga      : ")
+                            desk = input("Masukkan deskripsi bunga : ")
+                            makna = input("Masukkan makna bunga     : ")
 
-                        if nama == "" and desk == "" and makna == "":
+                            if nama == "" or desk == "" or makna == "":
+                                print("Kolom tidak boleh kosong!")
+                                continue
+                    
+                            bunga_terpakai = False
+                            for bunga in ensiklopedia.values():
+                                if nama == bunga["bunga"]:
+                                    bunga_terpakai = True
+                                    break
+                    
+                            if bunga_terpakai:
+                                print("Koleksi sudah tersedia, silahkan input ulang!")
+                                print("=============================================")
+                                continue
+
+                            else:
+                                id_terakhir += 1
+
+                                ensiklopedia[f"id{id_terakhir}"] =({
+                                                f"id{i}": {
+                                                "bunga": nama,
+                                                "deskripsi": desk, 
+                                                "makna": makna
+                                                }
+                                            })
+                                print("Koleksi berhasil di tambahkan!")
+                                break
+
+                    elif pilihan_admin == "3":
+                        print("0. Kembali ke menu utama")
+                        nomor = 1
+                        print('''
+=======================================
+              DAFTAR BUNGA
+=======================================
+''')
+                        for i in ensiklopedia.values():
+                            print(f"{nomor}. {i["bunga"]}")
+                            nomor += 1
+
+                        edit = input("Masukkan nomor bunga yang ingin diedit: ")
+                        if edit == "":
                             print("Input tidak boleh kosong!")
 
+                        elif not edit.isdigit():
+                            print("Input harus berupa angka!")
+
                         else:
-                            print("Koleksi berhasil di tambahkan!")
-                            i = len(ensiklopedia)
-                            ensiklopedia.update({
-                                "id": i,
-                                "bunga": nama,
-                                "deskripsi": desk, 
-                                "makna": makna
-                            })
-                            print(ensiklopedia)
+                            edit = int(edit)
+                            if edit == 0:
+                                pass
+                            elif edit >= 1 and edit <= len(ensiklopedia):
+                                id_bunga = list(ensiklopedia.keys()) 
+                                bunga_edit = ensiklopedia[id_bunga[edit - 1]]
+                                print('''
+=======================================
+              EDIT BUNGA
+=======================================
+(Tekan Enter jika tidak ingin mengubah)
+''')
+                                nama_baru = input(f"Nama Bunga [{bunga_edit["bunga"]}]: ")
+                                deskripsi_baru = input(f"Deskripsi [{bunga_edit["deskripsi"]}]: ")
+                                makna_baru = input(f"Makna Bunga [{bunga_edit["makna"]}]: ")
 
-#                     elif pilihan_admin == "3":
-#                         print("0. Kembali ke menu utama")
-#                         nomor = 1
-#                         print('''
-# =======================================
-#               DAFTAR BUNGA
-# =======================================
-# ''')
-#                         for i in ensiklopedia:
-#                             print(f"{nomor}. {i[0]}")
-#                             nomor += 1
+                                if nama_baru != "":
+                                    bunga_edit["bunga"] = nama_baru
+                                if deskripsi_baru != "":
+                                    bunga_edit["deskripsi"] = deskripsi_baru
+                                if makna_baru != "":
+                                    bunga_edit["makna"] = makna_baru
 
-#                         edit = input("Masukkan nomor bunga yang ingin diedit: ")
-#                         if edit == "":
-#                             print("Input tidak boleh kosong!")
+                                print("Koleksi berhasil diedit!")
 
-#                         elif not edit.isdigit():
-#                             print("Input harus berupa angka!")
+                            else:
+                                print("Nomor bunga tidak valid.")
 
-#                         else:
-#                             edit = int(edit)
-#                             if edit == 0:
-#                                 pass
-#                             elif edit >= 1 and edit <= len(ensiklopedia):
-#                                 bunga_edit = ensiklopedia[edit - 1]
-#                                 print('''
-# =======================================
-#               EDIT BUNGA
-# =======================================
-# (Tekan Enter jika tidak ingin mengubah)
-# ''')
-#                                 nama_baru = input(f"Nama Bunga [{bunga_edit[0]}]: ")
-#                                 deskripsi_baru = input(f"Deskripsi [{bunga_edit[1]}]: ")
-#                                 makna_baru = input(f"Makna Bunga [{bunga_edit[2]}]: ")
+                    elif pilihan_admin == "4":
+                        print("0. Kembali ke menu utama")
+                        nomor = 1
+                        print('''
+=======================================
+              DAFTAR BUNGA
+=======================================
+''')
+                        for i in ensiklopedia.values():
+                            print(f"{nomor}. {i["bunga"]}")
+                            nomor += 1
+                        hapus = input("Masukkan nomor bunga yang ingin dihapus: ")
+                        if hapus == "":
+                            print("Input tidak boleh kosong!")
 
-#                                 if nama_baru != "":
-#                                     bunga_edit[0] = nama_baru
-#                                 if deskripsi_baru != "":
-#                                     bunga_edit[1] = deskripsi_baru
-#                                 if makna_baru != "":
-#                                     bunga_edit[2] = makna_baru
+                        elif not hapus.isdigit():
+                            print("Input harus berupa angka!")
 
-#                                 print("Koleksi berhasil diedit!")
+                        else:
+                            hapus = int(hapus)
+                            if hapus == 0:
+                                pass
+                            elif hapus >= 1 and hapus <= len(ensiklopedia):
+                                id_bunga = list(ensiklopedia.keys()) 
+                                bunga_hapus = ensiklopedia[id_bunga[hapus - 1]]
+                                konfirmasi = input(f"Yakin hapus '{bunga_hapus["bunga"]}'(y/t)?: ").lower()
+                                if konfirmasi == "y":
+                                    ensiklopedia.pop(id_bunga[hapus - 1])
+                                    print("Koleksi berhasil dihapus!")
+                                else:
+                                    print("Penghapusan dibatalkan.")
+                            else:
+                                print("Nomor bunga tidak valid.")
 
-#                             else:
-#                                 print("Nomor bunga tidak valid.")
+                    elif pilihan_admin == "5":
+                        print("Terimakasih telah mengunjungi Ensiklopedia Bunga!")
+                        break
 
-#                     elif pilihan_admin == "4":
-#                         print("0. Kembali ke menu utama")
-#                         nomor = 1
-#                         print('''
-# =======================================
-#               DAFTAR BUNGA
-# =======================================
-# ''')
-#                         for i in ensiklopedia:
-#                             print(f"{nomor}. {i[0]}")
-#                             nomor += 1
-#                         hapus = input("Masukkan nomor bunga yang ingin dihapus: ")
-#                         if hapus == "":
-#                             print("Input tidak boleh kosong!")
+                    elif pilihan_admin == "":
+                        print("Pilihan tidak boleh kosong!")
 
-#                         elif not hapus.isdigit():
-#                             print("Input harus berupa angka!")
-
-#                         else:
-#                             hapus = int(hapus)
-#                             if hapus == 0:
-#                                 pass
-#                             elif hapus >= 1 and hapus <= len(ensiklopedia):
-#                                 bunga_hapus = ensiklopedia[hapus - 1]
-#                                 konfirmasi = input(f"Yakin hapus '{bunga_hapus[0]}'(y/t)?: ").lower()
-#                                 if konfirmasi == "y":
-#                                     ensiklopedia.pop(hapus - 1)
-#                                     print("Koleksi berhasil dihapus!")
-#                                 else:
-#                                     print("Penghapusan dibatalkan.")
-#                             else:
-#                                 print("Nomor bunga tidak valid.")
-
-#                     elif pilihan_admin == "5":
-#                         print("Terimakasih telah mengunjungi Ensiklopedia Bunga!")
-#                         exit()
-
-#                     elif pilihan_admin == "":
-#                         print("Pilihan tidak boleh kosong!")
-
-#                     else:
-#                         print("pilihan tidak tersedia!")
-
+                    else:
+                        print("pilihan tidak tersedia!")
+            
             else:
                 while True:
                     print('''
@@ -241,64 +256,67 @@ while True:
         ENSIKLOPEDIA BUNGA
 =======================================
 1. LIHAT KOLEKSI BUNGA 
-2. KELUAR
+2. LOGOUT
 =======================================
 ''')
                     pilihan_user = input("Masukkan pilihan (1/2): ")
-#                     if pilihan_user == "1":
-#                         while True:
-#                             print("0. Kembali ke menu utama")
-#                             nomor = 1
-#                             print('''
-# =======================================
-#              DAFTAR BUNGA
-# =======================================
-# ''')
-#                             for i in ensiklopedia:
-#                                 print(f"{nomor}. {i[0]}")
-#                                 nomor += 1
+                    if pilihan_user == "1":
+                        while True:
+                            print("0. Kembali ke menu utama")
+                            nomor = 1
+                            print('''
+=======================================
+             DAFTAR BUNGA
+=======================================
+''')
+                            for i in ensiklopedia.values():
+                                print(f"{nomor}. {i["bunga"]}")
+                                nomor += 1
 
-#                             detail = input("Masukkan nomor bunga untuk melihat detail: ")
-#                             if detail == "":
-#                                 print("Input tidak boleh kosong!")
+                            detail = input("Masukkan nomor bunga untuk melihat detail: ")
+                            if detail == "":
+                                print("Input tidak boleh kosong!")
 
-#                             elif not detail.isdigit():
-#                                 print("Input harus berupa angka!")
+                            elif not detail.isdigit():
+                                print("Input harus berupa angka!")
 
-#                             else:
-#                                 detail = int(detail)
-#                                 if detail >= 1 and detail <= len(ensiklopedia):
-#                                     bunga_terpilih = ensiklopedia[detail - 1]
-#                                     print('''
-# =======================================
-#              DETAIL BUNGA
-# =======================================
-# ''')
-#                                     print(f"Nama Bunga   : {bunga_terpilih[0]}")
-#                                     print(f"Deskripsi    : {bunga_terpilih[1]}")
-#                                     print(f"Makna Bunga  : {bunga_terpilih[2]}")
-#                                 elif detail == 0:
-#                                     kembali = True
-#                                     break
-#                                 else:
-#                                     print("Nomor bunga tidak valid.")
+                            else:
+                                detail = int(detail)
+                                if detail >= 1 and detail <= len(ensiklopedia):
+                                    id_bunga = list(ensiklopedia.keys()) 
+                                    bunga_terpilih = ensiklopedia[id_bunga[detail - 1]]
+                                    print('''
+=======================================
+             DETAIL BUNGA
+=======================================
+''')
+                                    print(f"Nama Bunga   : {bunga_terpilih["bunga"]}")
+                                    print(f"Deskripsi    : {bunga_terpilih["deskripsi"]}")
+                                    print(f"Makna Bunga  : {bunga_terpilih["makna"]}")
+                                elif detail == 0:
+                                    kembali = True
+                                    break
+                                else:
+                                    print("Nomor bunga tidak valid.")
 
-#                     elif pilihan_user == "2":
-#                         print("Terimakasih telah mengunjungi Ensiklopedia Bunga!")
-#                         exit()
+                    elif pilihan_user == "2":
+                        print("Terimakasih telah mengunjungi Ensiklopedia Bunga!")
+                        break
 
-#                     elif pilihan_user == "":
-#                         print("Pilihan tidak boleh kosong!")
+                    elif pilihan_user == "":
+                        print("Pilihan tidak boleh kosong!")
                     
-#                     else:
-#                         print("Pilihan tidak tersedia!")
+                    else:
+                        print("Pilihan tidak tersedia!")
+            
+            break
 
-#     elif pilihan == "3":
-#         print("Terimakasih telah mengunjungi Ensiklopedia Bunga!")
-#         break
+    elif pilihan == "3":
+        print("Terimakasih telah mengunjungi Ensiklopedia Bunga!")
+        break
 
-#     elif pilihan == "":
-#         print("Pilihan tidak boleh kosong!")
+    elif pilihan == "":
+        print("Pilihan tidak boleh kosong!")
 
-#     else:
-#         print("Pilihan tidak tersedia!")
+    else:
+        print("Pilihan tidak tersedia!")
