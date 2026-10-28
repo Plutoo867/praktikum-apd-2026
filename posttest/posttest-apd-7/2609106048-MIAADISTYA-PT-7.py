@@ -1,26 +1,105 @@
-# ensiklopedia = {}
-# id_terakhir = 0
+ensiklopedia = {
+    "id1": {
+        "bunga" : "mawar",
+        "deskripsi" : "merah & berduri",
+        "makna" : "keyakinan masing masing aja lah"
+    }}
 
-# data_user = {
-#     "admin" : {
-#         "role" : "admin",
-#         "username" : "admin",
-#         "password" : "admin123"
-#     }}
+data_user = {
+    "admin" : {
+        "role" : "admin",
+        "username" : "admin",
+        "password" : "admin123"
+    }}
+
+garis = "=" * 40
+id_terakhir = 1
 
 def menu_utama():
     print('''
-===============================    
-     MENU LOGIN & REGISTER
-===============================
+========================================   
+         MENU LOGIN & REGISTER
+========================================
 1. REGISTER
 2. LOGIN
 3. KELUAR
-===============================
+========================================
  ''')
-    
 
-menu_utama()
+def menu_admin():
+    print('''
+========================================
+           ENSIKLOPEDIA BUNGA
+========================================
+1. LIHAT KOLEKSI BUNGA 
+2. TAMBAHKAN KOLEKSI BUNGA
+3. EDIT KOLEKSI BUNGA
+4. HAPUS KOLEKSI BUNGA
+5. LOGOUT
+========================================
+''')
+
+def menu_user():
+    print('''
+========================================
+           ENSIKLOPEDIA BUNGA
+========================================
+1. LIHAT KOLEKSI BUNGA 
+2. LOGOUT
+========================================
+''')
+
+def table(label, isi):
+    awal = f"{label:<15}: "
+    lebar_isi = len(garis) - len(awal)
+    baris = ""
+    pertama = True
+
+    for kata in isi.split():
+        if baris and len(baris) + 1 + len(kata) > lebar_isi:
+            print((awal if pertama else " " * len(awal)) + baris)
+            pertama = False
+            baris = kata
+        else:
+            baris = f"{baris} {kata}".strip()
+
+    print((awal if pertama else " " * len(awal)) + baris)
+
+def read():
+    while True:
+        print("0. Kembali ke menu utama")
+        print(garis)
+        print("DAFTAR BUNGA".center(40))
+        print(garis)
+        nomor = 1
+        for bunga in ensiklopedia.values():
+            print(f"{nomor}. {bunga["bunga"]}")
+            nomor += 1
+        print(garis)
+        try:
+            detail = int(input("Masukkan nomor bunga untuk melihat detail: "))
+            if detail >= 1 and detail <= len(ensiklopedia):
+                id_bunga = list(ensiklopedia.keys()) 
+                bunga_terpilih = ensiklopedia[id_bunga[detail - 1]]
+                print(garis)
+                print("DETAL BUNGA".center(40))
+                print(garis)
+                table("Nama Bunga", bunga_terpilih["bunga"])
+                table("Deskripsi", bunga_terpilih["deskripsi"])
+                table("Makna Bunga",  bunga_terpilih["makna"])
+                print(garis)
+
+            elif detail == 0:
+                break
+            else:
+                print("Koleksi tidak tersedia!")
+                print(garis)
+        except ValueError:
+            print("Input tidak valid!")
+            print(garis)
+
+read()
+            
 # while True:
 #     print('''
 # ===============================    
