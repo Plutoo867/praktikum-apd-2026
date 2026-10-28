@@ -140,4 +140,3 @@ def tampil_data():
 tambah_data()
 tampil_data()
 
-print ("hello")
