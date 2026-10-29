@@ -106,16 +106,20 @@ def id_bunga():
 def create():
     while True:
         try:
-            nama = input("Masukkan nama bunga      : ")
-            desk = input("Masukkan deskripsi bunga : ")
-            makna = input("Masukkan makna bunga    : ")
+            nama = input("Masukkan nama bunga       : ")
+            desk = input("Masukkan deskripsi bunga  : ")
+            makna = input("Masukkan makna bunga      : ")
 
             if cek_bunga(nama):
                 print("Koleksi sudah tersedia, silahkan input ulang!")
                 print(garis)
                 continue
+
+            elif nama == "" or desk == "" or makna == "":
+                print("Kolom tidak boleh kosong!")
+                continue
+
             else:
-                id_terakhir += 1 
                 ensiklopedia[id_bunga()] =({
                                 "bunga": nama,
                                 "deskripsi": desk, 
@@ -152,18 +156,28 @@ def update():
             print("(Tekan Enter jika tidak ingin mengubah)")
             print(garis)
 
-            nama_baru = input(f"Nama Bunga [{bunga_edit["bunga"]}]: ")
-            deskripsi_baru = input(f"Deskripsi [{bunga_edit["deskripsi"]}]: ")
-            makna_baru = input(f"Makna Bunga [{bunga_edit["makna"]}]: ")
+            while True:   
+                nama_baru = input(f"Nama Bunga [{bunga_edit["bunga"]}]: ")
+                deskripsi_baru = input(f"Deskripsi [{bunga_edit["deskripsi"]}]: ")
+                makna_baru = input(f"Makna Bunga [{bunga_edit["makna"]}]: ")
 
-            if nama_baru != "":
-                bunga_edit["bunga"] = nama_baru
-            if deskripsi_baru != "":
-                bunga_edit["deskripsi"] = deskripsi_baru
-            if makna_baru != "":
-                bunga_edit["makna"] = makna_baru
+                if nama_baru != "" and cek_bunga(nama_baru):
+                    print("Koleksi sudah tersedia, silahkan input ulang!")
+                    print(garis)
+                    continue
 
-            print("Koleksi berhasil diedit!")
+                if nama_baru != "":
+                    bunga_edit["bunga"] = nama_baru
+                if deskripsi_baru != "":
+                    bunga_edit["deskripsi"] = deskripsi_baru
+                if makna_baru != "":
+                    bunga_edit["makna"] = makna_baru
+
+                
+                print("Koleksi berhasil diedit!")
+                break
+        else:
+            print("Koleksi tidak tersedi!")
     except ValueError():
         print("Input Tidak Valid!")
 
@@ -188,8 +202,12 @@ def delete():
             if konfirmasi == "y":
                 ensiklopedia.pop(id_bunga[hapus - 1])
                 print("Koleksi berhasil dihapus!")
-            else:
+            elif konfirmasi == "t":
                 print("Penghapusan dibatalkan.")
+            else:
+                print("Input tidak valid! pilih antara y/t")
+        else:
+            print("Koleksi tidak tersedi!")
     except ValueError():
         print("Input Tidak Valid!")
 
