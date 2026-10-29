@@ -139,3 +139,4 @@ def tampil_data():
 # Memanggil fungsi
 tambah_data()
 tampil_data()
+
